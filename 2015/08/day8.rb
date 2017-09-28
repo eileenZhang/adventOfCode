@@ -1,67 +1,53 @@
 file_name = "input.txt"
 
-
-def parse(line)
-  left, right = line.split(" = ")
-  a, b = left.split(" to ").map {|n| n.to_sym}
-  
-
-  [a, b, right.to_i]
-end
-
-def find_shortest_path(node, nodes_left, g, shortest)
-  if nodes_left.empty?
-      return shortest
-  end
-  path_length = []
-  nodes_left.each do |n|
-    dis = node ? g[node][n] : 0
-    path_length << find_shortest_path(n, nodes_left - [n], g, shortest + dis)
-
-  end
-  path_length.min
-
-end
-
-def find_longest_path(node, nodes_left, g, longest)
-  if nodes_left.empty?
-      return longest
-  end
-  path_length = []
-  nodes_left.each do |n|
-    dis = node ? g[node][n] : 0
-    path_length << find_longest_path(n, nodes_left - [n], g, longest + dis)
-
-  end
-  path_length.max
-
-end
-
-min_length = 0
-max_length = 0
-File.open(file_name, "r") do |f|
-  g = {}
-  nodes = []
-  f.each_line do |line|
-    a, b, n = parse(line)
-
-    g[a] ||= {}
-    g[b] ||= {}
+def count(string)
+  new_length = 0
+  i = 0
+  while i < string.length
+    if string[i] == "\""
+      i += 1
+      next
+    end
+    new_length += 1
+    if string[i..i+1] == "\\\\" || string[i..i+1] == "\\\""
+      i += 2
+      next
+    elsif string[i..i+1] == "\\x"
+      i += 4
+      next
+    end
     
-    g[a][b] = n
-    g[b][a] = n
-    unless nodes.include?(a)
-      nodes << a
-    end
+    i += 1
+  end
+  new_length
+end
 
-    unless nodes.include?(b)
-      nodes << b
+def expand_count(string)
+  new_length = string.length
+  string.each_char do |c|
+    if c == "\\" || c == "\""
+      new_length += 1
     end
   end
-  # min_length = find_shortest_path(nil, nodes, g, 0)
-  max_length = find_longest_path(nil, nodes, g, 0)
+  new_length += 2
+  new_length
 
 end
 
-puts "part1: #{min_length}"
-puts "part2: #{max_length}"
+
+code_length = 0
+string_length = 0
+expand_length = 0
+File.open(file_name, "r") do |f|
+  f.each_line do |line|
+    line = line.strip
+    code_length += line.length
+    string_length += count(line)
+    expand_length += expand_count(line)
+  end
+end
+
+part1 = code_length - string_length
+part2 = expand_length - code_length
+puts "part1: #{part1}"
+puts "part2: #{part2}"
