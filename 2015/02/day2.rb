@@ -14,7 +14,7 @@ File.open(file_name, "r") do |f|
 
   	lst = [l,w,h].sort
   	p = 2 * lst[0] + 2 * lst[1]
-  	v = lst.inject(1, :*)
+  	v = l*w*h
   	part2 += p + v
   end
 end
