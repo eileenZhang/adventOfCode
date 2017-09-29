@@ -58,7 +58,7 @@ File.open(file_name, "r") do |f|
       nodes << b
     end
   end
-  # min_length = find_shortest_path(nil, nodes, g, 0)
+  min_length = find_shortest_path(nil, nodes, g, 0)
   max_length = find_longest_path(nil, nodes, g, 0)
 
 end
