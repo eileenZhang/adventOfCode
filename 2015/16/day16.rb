@@ -28,10 +28,6 @@ def match_property2(property, value)
   value == $master_lst[property]
 end
 
-
-
-
-
 $master_lst = {:children => 3, :cats => 7, :samoyeds => 2, :pomeranians => 3, :akitas => 0,
                :vizslas => 0, :goldfish => 5, :trees =>3, :cars => 2, :perfumes =>1}
 
@@ -57,10 +53,6 @@ File.open(file_name, "r") do |f|
       matching_aunts2 << (index + 1)
     end
   end
-  
-  # max_score2 = calculate_score2(susan_lst, master_lst)
-  
-  
 end
 
 puts "part1: #{matching_aunts1}"
