@@ -5,12 +5,12 @@ end
 
 
 def check_vowels(string)
-  total_v = 0
+  total_vowels = 0
   v = "aeiou".split("")
   v.each do |i|
-    total_v += string.count(i)
+    total_vowels += string.count(i)
   end
-  total_v >= 3
+  total_vowels >= 3
 end
 
 def check_consecutive(string)
@@ -58,7 +58,6 @@ part1 = 0
 part2 = 0
 file_name = "input.txt"
 File.open(file_name, "r") do |f|
-
   f.each_line do |line|
     if check_substring(line) && check_vowels(line) && check_consecutive(line)
       part1 += 1
