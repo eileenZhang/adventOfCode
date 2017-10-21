@@ -3,22 +3,19 @@ level = 0
 file_name = "input.txt"
 
 input = File.read(file_name)
+basement_pos = 0
 pos = 0
-basement = false
-
 input.split("").each do |i|
 	if i == "("
 		level += 1
 	elsif i == ")"
 		level -= 1
 	end
-	if !basement
-		pos += 1
-	end
-	if level == -1 && !basement
-		basement = true
+  pos += 1
+	if level == -1 && basement_pos == 0
+		basement_pos = pos
 	end
 end
 
 puts "part1: #{level}"
-puts "part2: #{pos}"
+puts "part2: #{basement_pos}"
