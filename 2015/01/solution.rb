@@ -2,10 +2,10 @@
 level = 0
 file_name = "input.txt"
 
-input = File.read(file_name)
+input = File.read(file_name).split("")
 basement_pos = 0
 pos = 0
-input.split("").each do |i|
+input.each do |i|
 	if i == "("
 		level += 1
 	elsif i == ")"

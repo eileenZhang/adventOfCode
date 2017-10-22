@@ -31,7 +31,6 @@ def parse_left(left)
   info
 end
 
-
 def find(var)
   if is_number(var)
     return var.to_i
@@ -58,27 +57,38 @@ def find(var)
   elsif action == :NOT
     sol = find(a) ^ 65535
   end
-  $ans[var] = sol
+   $ans[var] = sol
   sol
 end
 
 $ans = {}
 solution = nil
-file_name = "input.txt"
-File.open(file_name, "r") do |f|
+file_name = 'input.txt'
+input = File.read(file_name).split("\n")
 
-  f.each_line do |line|
+def operations(input)
+  ops = {}
+  input.each do |line|
     action, left, right = parse(line)
     if not action
-      $ans[right] = left[0]
+      ops[right] = left[0]
     else
-      $ans[right] = [action, left]
+      ops[right] = [action, left]
     end
   end
-  solution = find("a")
+  ops
 end
 
-puts "part1: #{solution}"
+$ans = operations(input)
+new_b = find("a")
+puts "part1: #{new_b}"
+
+$ans = operations(input)
+$ans['b'] = new_b
+solution = find("a")
+puts "part2: #{solution}"
+
+
 
 
 
