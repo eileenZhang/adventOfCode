@@ -1,11 +1,9 @@
-file_name = "input.txt"
+file_name = 'input.txt'
 
 
 def parse(line)
-  left, right = line.split(" = ")
-  a, b = left.split(" to ").map {|n| n.to_sym}
-  
-
+  left, right = line.split(' = ')
+  a, b = left.split(' to ').map {|n| n.to_sym}
   [a, b, right.to_i]
 end
 
@@ -39,7 +37,7 @@ end
 
 min_length = 0
 max_length = 0
-File.open(file_name, "r") do |f|
+File.open(file_name, 'r') do |f|
   g = {}
   nodes = []
   f.each_line do |line|

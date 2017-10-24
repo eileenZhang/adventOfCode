@@ -1,4 +1,4 @@
-file_name = "input.txt"
+file_name = 'input.txt'
 
 def count(string)
   new_length = 0
