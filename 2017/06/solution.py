@@ -1,7 +1,5 @@
 
-
-fin = open("input.txt").read().split(" ")
-fin = map(int, fin)
+fin = map(int, open("input.txt").read().split(" "))
 
 def redistribute(config):
     bank = config.index(max(config))
@@ -10,14 +8,13 @@ def redistribute(config):
     for i in range(items):
         bank = (bank + 1) % len(config)
         config[bank] += 1
-        
     return config
 
-i = 0
 steps = 0
 config = []
-memory_bank = fin[:]
 start = []
+memory_bank = fin[:]
+
 while True:
     if memory_bank in config:
         break 
