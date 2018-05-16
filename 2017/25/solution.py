@@ -1,53 +1,52 @@
-import re
-
-commands = open("input.txt").read().split("\n")
 
 
-def get_value(y):
-    if re.match('[\-0-9]', y):
-        return int(y)
-    else:
-        return register[y]
+state = 'A'
+steps = 12861455
+tape = [0] * steps
+current = 12861455/2
 
-i = 0
-register = {}
-count = 0
-while 0 <= i and i < len(commands):
-    command, x, y = commands[i].split(" ")
-    y = get_value(y)
-    if x not in register:
-        register[x] = 0
-    if command == "set":
-        register[x] = y
-    if command == "sub":
-        register[x] -= y
-    if command == "mul":
-        register[x] *= y
-        count += 1
-    if command == "jnz" and get_value(x):
-        i += y
-    else:
-        i += 1
+for i in range(steps):
+    value = tape[current]
+    if state == 'A':
+        state = 'B'
+        tape[current] = (value + 1) % 2
+        if value == 0:
+            current += 1
+        elif value == 1:
+            current -= 1
+    elif state == 'B':
+        tape[current] = (value + 1) % 2
+        if value == 0:
+            state = 'C'
+            current -= 1
+        elif value == 1:
+            current += 1
+            state = 'E'
+    elif state == 'C':
+        tape[current] = (value + 1) % 2
+        if value == 0:
+            state = 'E'
+            current += 1
+        elif value == 1:
+            current -= 1
+            state = 'D'
+    elif state == 'D':
+        tape[current] = 1
+        current -= 1
+        state = 'A'
+    elif state == 'E':
+        tape[current] = 0
+        current += 1
+        if value == 0:
+            state = 'A'
+        elif value == 1:
+            state = 'F'
+    elif state == 'F':
+        tape[current] = 1
+        current += 1
+        if value == 0:
+            state = 'E'
+        elif value == 1:
+            state = 'A'
 
-print "part1:", count
-b = 67 * 100 + 100000
-c = 67 + 17000
-h = 0
-
-while True:
-    f = 1
-    d = 2
-    while d * d < b:
-        if b % d == 0:
-            f = 0
-            break
-        d += 1
-
-    if (f == 0):
-        h += 1
-    g = b - c
-    b += 17
-    if g == 0:
-        break
-
-print "part2:", h
+print "part1", sum(tape)
