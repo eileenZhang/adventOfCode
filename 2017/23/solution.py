@@ -24,7 +24,6 @@ def run_command(c, v):
             return get_value(v[1])
     return 1
 
-register['a'] = 1
 lines = open('input.txt').readlines()
 current = 0
 while current < len(lines):
@@ -33,3 +32,16 @@ while current < len(lines):
 
 print register
 print 'part1', count
+
+h = 0
+
+def prime(b):
+    for d in range(2, int(b ** .5 + 1)):
+        if (b % d == 0): return False
+    return True
+
+for b in range(106700, 123701, 17):
+    if (not prime(b)):
+        h += 1
+
+print "part2", h
